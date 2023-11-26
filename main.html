@@ -5,52 +5,102 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        line-height: 1.6;
+      }
+
       h1 {
         text-align: center;
+        padding: 20px;
+        background-color: #333;
+        color: #fff;
       }
-      #txt_wecome {
+
+      #txt_welcome {
         text-align: center;
         margin-bottom: 50px;
       }
 
       .card {
         text-align: center;
+        margin: 20px;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        background-color: #fff;
       }
+
       .card_title {
         font-size: 20px;
+        color: #333;
       }
+
       .card_button {
         font-size: 25px;
         width: 150px;
         height: 30px;
+        background-color: #3498db;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
       }
+
+      .card_button:hover {
+        background-color: #2980b9;
+      }
+
       .card_img {
         width: 300px;
         height: 300px;
+      }
+
+      /* Grid layout */
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+
+      /* Responsive design */
+      @media (max-width: 900px) {
+        .grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 600px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
       }
     </style>
   </head>
   <body>
     <h1>Tennis market</h1>
     <div id="txt_welcome">
-      Welcome to Teenis market!
+      Welcome to Tennis market!
       <br />Enjoy your shopping. <br /><br />
-      <a href="./orderlist.html">order list</a>
+      <a href="/order">order list</a>
     </div>
-    <div style="display: grid">
+    <div class="grid">
       <div class="card">
-        <img class="card_img" src="./assets/redRacket.png" />
+        <img class="card_img" src="./img/redRacket.png" />
         <p class="card_title">Red Racket</p>
         <input
           class="card_button"
           type="button"
           value="order"
-          onclick="alert(1);"
+          onclick="location.href = '/order?productId=1'"
         />
       </div>
 
       <div class="card">
-        <img class="card_img" src="./assets/blueRacket.png" />
+        <img class="card_img" src="./img/blueRacket.png" />
         <p class="card_title">Blue Racket</p>
         <input
           class="card_button"
@@ -59,8 +109,9 @@
           onclick="alert(1);"
         />
       </div>
+
       <div class="card">
-        <img class="card_img" src="./assets/blackRacket.png" />
+        <img class="card_img" src="./img/blackRacket.png" />
         <p class="card_title">Black Racket</p>
         <input
           class="card_button"
