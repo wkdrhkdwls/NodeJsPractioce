@@ -14,13 +14,25 @@ app.get("/:id", function (req, res) {
 });
 
 let db = new Map();
-db.set(1, "NoteBook"); // 키로 벨류를 찾을 수 있는 한 쌍을 저장
-db.set(2, "Cup");
-db.set(3, "chair");
-db.set("1", "kwangjin");
 
-console.log(db);
-console.log(db.get(1));
-console.log(db.get("1"));
-// console.log(db.get(2));
-// console.log(db.get(3));
+let notebook = {
+  productName: "Notebook",
+  price: 2000000,
+};
+let cup = {
+  productName: "Cup",
+  price: 100000,
+};
+let chair = {
+  productName: "chair",
+  price: 320000,
+};
+let poster = {
+  productName: "poster",
+  price: 22200000,
+};
+
+db.set(1, notebook); // 키로 벨류를 찾을 수 있는 한 쌍을 저장
+db.set(2, cup);
+db.set(3, chair);
+db.set(4, poster);
