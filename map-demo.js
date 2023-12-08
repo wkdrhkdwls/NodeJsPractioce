@@ -3,14 +3,19 @@ const app = express();
 app.listen(1234);
 
 app.get("/:id", function (req, res) {
-  const { id } = req.params;
-  console.log(p.id);
-
+  let { id } = req.params;
   id = parseInt(id);
 
-  res.json({
-    productName: db.get(id),
-  });
+  if (db.get(id) == undefined) {
+    res.json({
+      message: "없는 상품입니다.",
+    });
+  } else {
+    product = db.get(id);
+    product["id"] = id;
+    // product.id = id;
+    res.json(product);
+  }
 });
 
 let db = new Map();
