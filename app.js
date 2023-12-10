@@ -1,41 +1,20 @@
-let createError = require("http-errors");
-let express = require("express");
-let path = require("path");
-let cookieParser = require("cookie-parser");
-let logger = require("morgan");
+const express = require("express");
+const app = express();
+const port = 1234;
 
-let indexRouter = require("./routes/index");
-let usersRouter = require("./routes/users");
-
-let app = express();
-
-// view engine setup
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "jade");
-
-app.use(logger("dev"));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
-
-app.use("/", indexRouter);
-app.use("/users", usersRouter);
-
-// catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  next(createError(404));
+app.get("/", (req, res) => {
+  res.send("hello world");
 });
 
-// error handler
-app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get("env") === "development" ? err : {};
+app.use(express.json()); // 이렇게 설정해줘야 post에 body값을 확인 가능
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render("error");
+app.post("/test", function (req, res) {
+  // body에 숨겨져서 들어온 데이터를 화면에 뿌려줘볼까?
+  console.log(req.body); // 이렇게만하면 undefined가 나오는 문제 발생.
+
+  res.send(req.body);
 });
 
-module.exports = app;
+app.listen(port, () => {
+  console.log(`dfsdfsdf ${port}`);
+});

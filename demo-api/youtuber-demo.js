@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-
+app.use(express.json()); // http 외 모듈인 '미들웨어' ; json 설정
 app.listen(1234);
 
 let youtuber1 = {
@@ -31,4 +31,14 @@ app.get("/youtuber/:id", function (req, res) {
   } else {
     res.json(youtuber);
   }
+});
+
+app.post("/youtuber", function (req, res) {
+  console.log(req.body);
+
+  db.set(4, req.body);
+
+  res.json({
+    message: `${db.get(4).channelTitle}님 환영합니다!`,
+  });
 });
