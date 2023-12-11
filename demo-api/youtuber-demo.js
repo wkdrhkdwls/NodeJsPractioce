@@ -15,10 +15,24 @@ let youtuber2 = {
   videoNum: "6600개",
 };
 
-let db = new Map();
-db.set(1, youtuber1);
-db.set(2, youtuber2);
+let youtuber3 = {
+  channelTitle: "침착맨2",
+  sub: "2271만",
+  videoNum: "66200개",
+};
 
+let db = new Map(); // key - value = json
+let id = 1;
+
+db.set(id++, youtuber1);
+db.set(id++, youtuber2);
+db.set(id++, youtuber3);
+
+app.get("/youtubers", function (req, res) {
+  res.json({
+    message: "test",
+  });
+});
 app.get("/youtuber/:id", function (req, res) {
   let { id } = req.params;
   id = parseInt(id);
@@ -33,12 +47,12 @@ app.get("/youtuber/:id", function (req, res) {
   }
 });
 
-app.post("/youtuber", function (req, res) {
+app.post("/youtubers", function (req, res) {
   console.log(req.body);
 
-  db.set(4, req.body);
+  db.set(id++, req.body);
 
   res.json({
-    message: `${db.get(4).channelTitle}님 환영합니다!`,
+    message: `${db.get(id - 1).channelTitle}님 환영합니다!`,
   });
 });
