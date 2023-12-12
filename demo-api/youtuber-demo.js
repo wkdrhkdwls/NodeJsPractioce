@@ -28,7 +28,7 @@ db.set(id++, youtuber1);
 db.set(id++, youtuber2);
 db.set(id++, youtuber3);
 
-app.get("/youtubers", function (req, res) {
+app.get("/yout", function (req, res) {
   res.json({
     message: "test",
   });
