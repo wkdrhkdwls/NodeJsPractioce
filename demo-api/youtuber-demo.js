@@ -29,12 +29,19 @@ db.set(id++, youtuber2);
 db.set(id++, youtuber3);
 
 app.get("/youtubers", function (req, res) {
-  let youtubers = {};
+  var youtubers = {};
 
-  db.forEach(function (value, key) {
-    youtubers[key] = value;
-  });
-  res.json(youtubers);
+  if (db.size !== 0) {
+    db.forEach(function (value, key) {
+      youtubers[key] = value;
+    });
+
+    res.json(youtubers);
+  } else {
+    res.status(404).json({
+      message: "조회할 수 있는 유튜버가 없습니다.",
+    });
+  }
 });
 
 app.get("/youtuber/:id", function (req, res) {
@@ -43,7 +50,7 @@ app.get("/youtuber/:id", function (req, res) {
 
   const youtuber = db.get(id);
   if (youtuber == undefined) {
-    res.json({
+    res.status(404).json({
       message: "유튜버 정보를 찾을 수 없습니다.",
     });
   } else {
@@ -61,7 +68,7 @@ app.post("/youtubers", function (req, res) {
     message: `${db.get(id - 1).channelTitle}님 환영합니다!`,
   });
 });
-app.get();
+
 app.delete("/youtubers/:id", function (req, res) {
   let { id } = req.params;
   id = parseInt(id);
@@ -75,7 +82,7 @@ app.delete("/youtubers/:id", function (req, res) {
       message: `${channelTitle}님, bye`,
     });
   } else {
-    res.json({
+    res.status(404).json({
       message: `요청하신 ${id}는 없는 유튜버입니다.`,
     });
   }
@@ -83,21 +90,18 @@ app.delete("/youtubers/:id", function (req, res) {
 
 app.delete("/youtubers", function (req, res) {
   // db에 값이 1개 이상이면, 전체 삭제
-  var msg = "";
+
   if (db.size >= 1) {
     db.clear();
 
-    msg = "전체 유튜버 삭제!";
     res.json({
       message: `전체 유튜버 삭제!`,
     });
   } else {
-    msg = "삭제할 유튜버가 없습니다";
+    res.status(404).json({
+      message: `삭제할 유튜버가 없습니다`,
+    });
   }
-
-  res.json({
-    message: msg,
-  });
 });
 
 app.put("/youtubers/:id", function (req, res) {
@@ -108,7 +112,7 @@ app.put("/youtubers/:id", function (req, res) {
   var oldTitle = youtuber.channelTitle;
 
   if (youtuber == undefined) {
-    res.json({
+    res.status(404).json({
       message: `요청하신 ${id}는 없는 유튜버입니다.`,
     });
   } else {
