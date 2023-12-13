@@ -61,23 +61,22 @@ app.post("/youtubers", function (req, res) {
     message: `${db.get(id - 1).channelTitle}님 환영합니다!`,
   });
 });
-
+app.get();
 app.delete("/youtubers/:id", function (req, res) {
   let { id } = req.params;
   id = parseInt(id);
 
   var youtuber = db.get(id);
-
-  if (youtuber == undefined) {
-    res.json({
-      message: `요청하신 ${id}는 없는 유튜버입니다.`,
-    });
-  } else {
+  if (youtuber) {
     const channelTitle = youtuber.channelTitle;
     db.delete(id);
 
     res.json({
       message: `${channelTitle}님, bye`,
+    });
+  } else {
+    res.json({
+      message: `요청하신 ${id}는 없는 유튜버입니다.`,
     });
   }
 });
