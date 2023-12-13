@@ -60,13 +60,18 @@ app.get("/youtuber/:id", function (req, res) {
 
 app.use(express.json()); // http 외 모듈인 '미들웨어' ; json 설정
 app.post("/youtubers", function (req, res) {
-  console.log(req.body);
+  const channelTitle = req.body.channelTitle;
+  if (channelTitle) {
+    db.set(id++, req.body);
 
-  db.set(id++, req.body);
-
-  res.json({
-    message: `${db.get(id - 1).channelTitle}님 환영합니다!`,
-  });
+    res.status(201).json({
+      message: `${db.get(id - 1).channelTitle}님 환영합니다!`,
+    });
+  } else {
+    res.status(400).json({
+      message: "요청 값을 제대로 보내주세요.",
+    });
+  }
 });
 
 app.delete("/youtubers/:id", function (req, res) {
